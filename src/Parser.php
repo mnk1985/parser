@@ -2,7 +2,9 @@
 
 namespace App;
 
-class Parser
+use App\ParserInterface;
+
+class Parser implements ParserInterface
 {
 
 	protected $url_sms;
@@ -18,7 +20,7 @@ class Parser
 	/**
 	 * @param  string
 	 * @param  string
-	 * @return [type]
+	 * @return array
 	 */
 	public function getDataByCountry(string $toCountry, string $fromCountry = 'RU')
 	{

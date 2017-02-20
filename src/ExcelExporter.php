@@ -2,7 +2,9 @@
 
 namespace App;
 
-class ExcelExporter
+use App\ExporterInterface;
+
+class ExcelExporter implements ExporterInterface
 {
 
 	public $spreadsheet;
