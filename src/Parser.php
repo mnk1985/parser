@@ -54,13 +54,16 @@ class Parser
 	{
 		$destinations = $this->getDestinations($this->url_sms);
 
-		foreach($destinations as $destination){
-			$category = $this->getCategory($destination, 'sms');
+		if ($destinations)
+		{
+			foreach($destinations as $destination){
+				$category = $this->getCategory($destination, 'sms');
 
-			$this->countryResult[$category][] = [
-				'name' => $destination->name,
-				'priceFormatted' => $destination->usageCharge->priceFormatted
-			];
+				$this->countryResult[$category][] = [
+					'name' => $destination->name,
+					'priceFormatted' => $destination->usageCharge->priceFormatted
+				];
+			}
 		}
 	}
 
@@ -86,7 +89,7 @@ class Parser
 
 	/**
 	 * @param  string
-	 * @return array
+	 * @return array | Exception
 	 */
 	protected function getDestinations($url)
 	{
@@ -96,7 +99,10 @@ class Parser
 
 		$result = json_decode($resultJson);
 
-		return $result->destinations;
+		if ($result && isset($result->destinations))
+			return $result->destinations;
+
+		return null;
 	}
 
 	/**
