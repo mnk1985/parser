@@ -1,0 +1,13 @@
+{
+    "name": "alex/skype_parser",
+    "type": "project",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2",
+        "phpoffice/phpspreadsheet": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
