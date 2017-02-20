@@ -15,6 +15,11 @@ class Parser
 		$this->client = new \GuzzleHttp\Client();
 	}
 
+	/**
+	 * @param  string
+	 * @param  string
+	 * @return [type]
+	 */
 	public function getDataByCountry(string $toCountry, string $fromCountry = 'RU')
 	{
 		$this->generateUrls($toCountry, $fromCountry);
@@ -25,6 +30,9 @@ class Parser
 		return $result;
 	}
 
+	/**
+	 * @return void
+	 */
 	protected function getSkypeoutData()
 	{
 		$destinations = $this->getDestinations($this->url_skypeout);
@@ -39,6 +47,9 @@ class Parser
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	protected function getSmsData()
 	{
 		$destinations = $this->getDestinations($this->url_sms);
@@ -53,6 +64,11 @@ class Parser
 		}
 	}
 
+	/**
+	 * @param  stdClass
+	 * @param  string
+	 * @return string
+	 */
 	protected function getCategory($destination = null, $type = 'skypeout')
 	{
 		if ($type == 'sms')
@@ -68,6 +84,10 @@ class Parser
 			return 'Mobile';
 	}
 
+	/**
+	 * @param  string
+	 * @return array
+	 */
 	protected function getDestinations($url)
 	{
 		$response = $this->client->request('GET',  $url);
@@ -79,7 +99,12 @@ class Parser
 		return $result->destinations;
 	}
 
-	protected function generateUrls($toCountry, $fromCountry)
+	/**
+	 * @param  string
+	 * @param  string
+	 * @return void
+	 */
+	protected function generateUrls(string $toCountry, string $fromCountry)
 	{
 		if(strlen($toCountry) != 2 || strlen($fromCountry) != 2){
 			throw new \Exception('incorrent country code. must be 2 chars');

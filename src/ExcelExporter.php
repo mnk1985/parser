@@ -6,7 +6,7 @@ class ExcelExporter
 {
 
 	public $spreadsheet;
-	public $path = __DIR__.'/../results';
+	public $path = __DIR__.'/../results/';
 
 	public function __construct()
 	{
@@ -20,6 +20,11 @@ class ExcelExporter
 		    ->setDescription("skype prices");
 	}
 
+	/**
+	 * @param  string
+	 * @param  array
+	 * @return void
+	 */
 	public function exportTo(string $fileName, array $destinations)
 	{
 		$index = 1;
@@ -51,13 +56,21 @@ class ExcelExporter
 		$this->saveToDir($fileName);
 	}
 
-	protected function saveToDir($fileName)
+	/**
+	 * @param  string
+	 * @return void
+	 */
+	protected function saveToDir(string $fileName)
 	{
 		$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($this->spreadsheet, 'Excel5');
-		$writer->save($this->path.'/'.$fileName);
+		$writer->save($this->path.$fileName);
 	}
 
-	protected function saveInBrowser($fileName)
+	/**
+	 * @param  string
+	 * @return void
+	 */
+	protected function saveInBrowser(string $fileName)
 	{
 		//Redirect output to a client’s web browser (Excel5)
 		header('Content-Type: application/vnd.ms-excel');
